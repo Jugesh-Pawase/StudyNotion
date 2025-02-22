@@ -17,20 +17,18 @@ const {
 
 export function sendOtp(email, navigate) {
 
-  console.log("BASE URL ", BASE_URL);
+  // console.log("BASE URL ", BASE_URL);
   return async (dispatch) => {
     const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))
-    console.log(BASE_URL);
 
     try {
       const response = await apiConnector("POST", SENDOTP_API, {
         email,
         checkUserPresent: true,
       })
-      console.log("SENDOTP API RESPONSE............", response)
-
-      console.log(response.data.success)
+      // console.log("SENDOTP API RESPONSE............", response)
+      // console.log(response.data.success)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
@@ -71,7 +69,7 @@ export function signUp(
         otp,
       })
 
-      console.log("SIGNUP API RESPONSE............", response)
+      // console.log("SIGNUP API RESPONSE............", response)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
@@ -98,7 +96,7 @@ export function login(email, password, navigate) {
         password,
       })
 
-      console.log("LOGIN API RESPONSE............", response)
+      // console.log("LOGIN API RESPONSE............", response)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
@@ -127,16 +125,16 @@ export function getPasswordResetToken(email, setEmailSent) {
     const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))
     try {
-      console.log("Axios Request Config:", {
-        method: "POST",
-        url: RESETPASSTOKEN_API,
-        data: { email },
-      });      
+      // console.log("Axios Request Config:", {
+      //   method: "POST",
+      //   url: RESETPASSTOKEN_API,
+      //   data: { email },
+      // });      
       const response = await apiConnector("POST", RESETPASSTOKEN_API, {
         email,
       })
 
-      console.log("RESETPASSTOKEN RESPONSE............", response)
+      // console.log("RESETPASSTOKEN RESPONSE............", response)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
@@ -164,7 +162,7 @@ export function resetPassword(password, confirmPassword, token, navigate) {
         token,
       })
 
-      console.log("RESETPASSWORD RESPONSE............", response)
+      // console.log("RESETPASSWORD RESPONSE............", response)
 
       if (!response.data.success) {
         throw new Error(response.data.message)

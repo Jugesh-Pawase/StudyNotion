@@ -38,7 +38,7 @@ exports.createRating = async (req, res) => {
                 ratingAndReviews:ratingReview._id,
             }
         }, { new: true })
-        console.log(updatedCourseDetails);
+        // console.log(updatedCourseDetails);
         //return response        
         return res.status(200).json({
             success: true,

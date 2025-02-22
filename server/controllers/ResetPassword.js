@@ -6,11 +6,11 @@ const crypto = require("crypto");
 //resetPasswordToken
 exports.resetPasswordToken = async (req, res) => {
     try {
-        console.log("Request Body:", req.body);
+        // console.log("Request Body:", req.body);
 
         // get email from req.body
         const email = req.body.email;
-        console.log("user is ",email)
+        // console.log("user is ",email)
 
         // check user for email and validate 
         const user = await User.findOne({ email: email });
@@ -20,19 +20,19 @@ exports.resetPasswordToken = async (req, res) => {
                 message: "Your email is not registered with us",
             });
         }
-        console.log("email:- ", email);
+        // console.log("email:- ", email);
         // generate token
         const token = crypto.randomUUID();
-        console.log("Generated Token: ", token);
+        // console.log("Generated Token: ", token);
 
         //  update user by adding token and expiration time
         const updatedDetails = await User.findOneAndUpdate({ email: email }, {
             resetPasswordToken: token,
             resetPasswordExpires: Date.now() + 10 * 60 * 1000,
         }, { new: true });
-        console.log("Updated User Details: ", updatedDetails);
-        console.log("Token Expiry: ", updatedDetails.resetPasswordExpires);
-        console.log("Current Time: ", Date.now());
+        // console.log("Updated User Details: ", updatedDetails);
+        // console.log("Token Expiry: ", updatedDetails.resetPasswordExpires);
+        // console.log("Current Time: ", Date.now());
 
 
         // create url 
@@ -67,7 +67,7 @@ exports.resetPassword = async (req, res) => {
         if (token.startsWith("http")) {
             token = token.split('/').pop(); // Extract the last part of the URL
         }
-        console.log("Received Token: ", token);
+        // console.log("Received Token: ", token);
 
         // validation 
         if (password !== confirmPassword) {
@@ -80,7 +80,7 @@ exports.resetPassword = async (req, res) => {
         //get user details
         const userDetails = await User.findOne({ resetPasswordToken: token });
 
-        console.log("User details: ", userDetails);
+        // console.log("User details: ", userDetails);
         //if no entry-Invalid token 
         if (!userDetails) {
             return res.json({

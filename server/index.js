@@ -13,6 +13,7 @@ const cors = require("cors");   //To intertain fronted by bakend
 const { cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
+const path = require("path");
 
 const PORT = process.env.PORT || 4000;
 dotenv.config();

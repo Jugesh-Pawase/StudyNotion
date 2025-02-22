@@ -21,7 +21,7 @@ exports.auth = async (req, res, next) => {
         //verify the token
         try {
             const payload = await jwt.verify(token, process.env.JWT_SECRET);
-            console.log(payload);
+            // console.log(payload);
             req.user = payload;
         } catch (error) {
             return res.status(401).json({

@@ -11,7 +11,7 @@ const { convertSecondsToDuration } = require("../utils/SecToDuration");
 exports.createCourse = async (req, res) => {
   try {
     const userId = req.user.id;
-    console.log("UserId ", userId);
+    // console.log("UserId ", userId);
     let {
       courseName,
       courseDescription,
@@ -22,7 +22,7 @@ exports.createCourse = async (req, res) => {
       status,
       instructions: _instructions,
     } = req.body;
-    console.log("Body data ", req.body);
+    // console.log("Body data ", req.body);
     const thumbnail = req.files.thumbnailImage;
     // console.log("File data ", req.files.thumbnailImage);
     const tag = JSON.parse(_tag);
@@ -293,7 +293,7 @@ exports.getFullCourseDetails = async (req, res) => {
       userId: userId,
     });
 
-    console.log("courseProgressCount : ", courseProgressCount);
+    // console.log("courseProgressCount : ", courseProgressCount);
 
     if (!courseDetails) {
       return res.status(400).json({

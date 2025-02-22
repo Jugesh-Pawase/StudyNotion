@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const OTP = require("../models/OTP");
 const jwt = require("jsonwebtoken");
@@ -43,7 +43,7 @@ exports.signup = async (req, res) => {
 
         //find most recent OTP for the user
         const recentOtp = await OTP.find({ email }).sort({ createAt: -1 }).limit(1);
-        console.log(recentOtp);
+        // console.log(recentOtp);
 
         //validate OTP
         if (recentOtp.length == 0) {
@@ -181,7 +181,7 @@ exports.sendOTP = async (req, res) => {
             lowerCaseAlphabets: false,
             digits: true
         });
-        console.log("OTP generated ", otp);
+        // console.log("OTP generated ", otp);
 
         //check otp already exist or not
         let result = await OTP.findOne({ otp: otp });
@@ -198,7 +198,7 @@ exports.sendOTP = async (req, res) => {
         const otpPayload = { email, otp };
         //create an entry in DB for OTP
         const otpBody = await OTP.create(otpPayload);
-        console.log(otpBody);
+        // console.log(otpBody);
 
         //return response successfull
         res.status(200).json({
@@ -230,7 +230,7 @@ exports.changePassword = async (req, res) => {
             });
         }
 
-        console.log("Passwords:", oldPassword, newPassword, userDetails.password);
+        // console.log("Passwords:", oldPassword, newPassword, userDetails.password);
 
         const isPasswordMatch = await bcrypt.compare(oldPassword, userDetails.password);
         if (!isPasswordMatch) {
@@ -247,8 +247,7 @@ exports.changePassword = async (req, res) => {
             { new: true }
         );
 
-        console.log("Updated User Details:", updatedUserDetails.email,
-            updatedUserDetails.firstName);
+        // console.log("Updated User Details:", updatedUserDetails.email, updatedUserDetails.firstName);
         
         
         const data = passwordupdated(
@@ -261,7 +260,7 @@ exports.changePassword = async (req, res) => {
                 "Password for your account has been updated",
                 data
             );
-            console.log("Email sent successfully:", emailResponse.response);
+            // console.log("Email sent successfully:", emailResponse.response);
         } catch (error) {
             console.error("Error occurred while sending email:", error.message);
             return res.status(500).json({
